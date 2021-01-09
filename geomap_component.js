@@ -15,6 +15,7 @@
             bottom: 20px;
       </style>
       <div id='mapview'></div>
+      <div id='timeSlider'></div>
    `;
  
     class Map extends HTMLElement {
