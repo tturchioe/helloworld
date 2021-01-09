@@ -1,7 +1,7 @@
 (function() {
    let template = document.createElement("template");
    template.innerHTML = `
-      <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css">
+      <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
       <style>
           #mapview {
               width: 100%;
@@ -68,76 +68,7 @@
 //          		  			view: view
 //          				});
 		
-          				var routeTask = new RouteTask({
-          		  			url: "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
-          				});  
-  
-          				view.on("click", function( event) {
-                      if (view.graphics.length === 0) {
-                          addGraphic("start", event.mapPoint);
-                      } else if (view.graphics.length === 1) {
-                          addGraphic("finish", event.mapPoint);
-                          getRoute();
-                      } else {
-                          view.graphics.removeAll();
-                          addGraphic("start", event.mapPoint);
-                      }
-          				});
-  
-                  function addGraphic(type, point) {
-                      var graphic = new Graphic({
-                          symbol: {
-                              type: "simple-marker",
-                              color: type === "start" ? "white" : "black",
-                              size: "8px"
-                          },
-                          geometry: point
-                      });
-                      view.graphics.add(graphic);
-                  }
-  
-                  function getRoute() {
-                      // Setup the route parameters
-                      var routeParams = new RouteParameters({
-                          stops: new FeatureSet({
-                              features: view.graphics.toArray() // Pass the array of graphics
-                          }),
-                          returnDirections: true
-                      });
-            
-                      // Get the route
-                      routeTask.solve(routeParams).then(function (data) {
 
-                          // Display the route
-                          data.routeResults.forEach(function (result) {
-                              result.route.symbol = {
-                              type: "simple-line",
-                              color: [5, 150, 255],
-                              width: 3
-                              };
-                              view.graphics.add(result.route);
-                          });
-                  
-                          // Display the directions
-                          var directions = document.createElement("ol");
-                          directions.classList = "esri-widget esri-widget--panel esri-directions__scroller";
-                          directions.style.marginTop = 0;
-                          directions.style.paddingTop = "15px";
-                
-                          // Show the directions
-                          var features = data.routeResults[0].directions.features;
-                          features.forEach(function (result, i) {
-                              var direction = document.createElement("li");
-                              direction.innerHTML =
-                              result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
-                              directions.appendChild(direction);
-                          });
-                
-                          // Add directions to the view
-                          view.ui.empty("top-right");
-                          view.ui.add(directions, "top-right");
-                      });
-                  }
               });
           });
     
