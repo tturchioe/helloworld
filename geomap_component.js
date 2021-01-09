@@ -28,56 +28,54 @@
  
           require([
       		    "esri/config",
-				      "esri/WebMap",
-				      "esri/views/MapView",
-				      "esri/widgets/BasemapToggle",
-				      "esri/layers/FeatureLayer",
-				      "esri/widgets/TimeSlider",
-				      "esri/widgets/Expand",
-				      "esri/tasks/RouteTask",
-				      "esri/tasks/support/RouteParameters",
-				      "esri/tasks/support/FeatureSet",
-				      "esri/Graphic",
-				      "esri/views/ui/UI",
-				      "esri/views/ui/DefaultUI"
+			    "esri/WebMap",
+			    "esri/views/MapView",
+			    "esri/widgets/BasemapToggle",
+			    "esri/layers/FeatureLayer",
+			    "esri/widgets/TimeSlider",
+			    "esri/widgets/Expand",
+			    "esri/tasks/RouteTask",
+			    "esri/tasks/support/RouteParameters",
+			    "esri/tasks/support/FeatureSet",
+			    "esri/Graphic",
+			    "esri/views/ui/UI",
+			    "esri/views/ui/DefaultUI"
           ], function(esriConfig, WebMap, MapView, BasemapToggle, FeatureLayer, TimeSlider, Expand, RouteTask, RouteParameters, FeatureSet, Graphic) {
-  		    		// set portal and API Key
-		        	esriConfig.portalUrl = "https://arcgisent.gcoe.cloud/portal";
-		      		esriConfig.apiKey = 'WU-6RmVTw6-fZB6LRO-J8w0smNPCpbBnIweq70bupv0RhGVcncRkTVFLivcv1UXIfpyLkIFPz13wA7AKjDo7T8AgCdDNTpXUWBAuscdfnjlTxmOgMDfqi18uaV75cuCzAMktu0aalDfJFkPXkV4usJwS8ioYXPjwClsr6_KrTcp-7A5mziw_0AYAN488u1FJi1tdIcs6BCM64C8Er4R4as6VkEju_5AeukwfsPs0iJs.';
+	    		// set portal and API Key
+	        	esriConfig.portalUrl = "https://arcgisent.gcoe.cloud/portal";
+	      		esriConfig.apiKey = 'WU-6RmVTw6-fZB6LRO-J8w0smNPCpbBnIweq70bupv0RhGVcncRkTVFLivcv1UXIfpyLkIFPz13wA7AKjDo7T8AgCdDNTpXUWBAuscdfnjlTxmOgMDfqi18uaV75cuCzAMktu0aalDfJFkPXkV4usJwS8ioYXPjwClsr6_KrTcp-7A5mziw_0AYAN488u1FJi1tdIcs6BCM64C8Er4R4as6VkEju_5AeukwfsPs0iJs.';
 		
-		      		const webmap = new WebMap ({
-		              portalItem: {
-				      		    id: "137c11ce25bc485ca31feaf548f563f3"
-		    			    }
-				      });
+	      		const webmap = new WebMap ({
+                    portalItem: {
+		      		    id: "137c11ce25bc485ca31feaf548f563f3"
+				    }
+		        });
 
-				      const view = new MapView({
-		  			      container: "mapview",
-		  			      map: webmap
-				      });
+				const view = new MapView({
+		  		    container: "mapview",
+		  		    map: webmap
+				});
     
-              view.when(function () {
-                  view.popup.autoOpenEnabled = false; //disable popups
+                // time slider widget initialization
+                const timeSlider = new TimeSlider({
+                    container: "timeSlider",
+                    view: view
+                });
+                
+                view.when(function () {
+                    view.popup.autoOpenEnabled = false; //disable popups
 
-                  // Create the basemap toggle
-          				var basemapToggle = new BasemapToggle({
-            		  		view:view,
-            		  		nextBasemap: "satellite"
-          				});
-                  
-                  // Add the toggle to the bottom-right of the view
-			          	view.ui.add( basemapToggle, "bottom-right");
+                    // Create the basemap toggle
+                    var basemapToggle = new BasemapToggle({
+                        view:view,
+                        nextBasemap: "satellite"
+                    });
+                    
+                    // Add the toggle to the bottom-right of the view
+                    view.ui.add( basemapToggle, "bottom-right");
 
-//           				// time slider widget initialization
-//          				const timeSlider = new TimeSlider({
-//          		  			container: "timeSlider",
-//          		  			view: view
-//          				});
-		
-
-              });
+                });
           });
-    
       }
  
       getSelection() {
