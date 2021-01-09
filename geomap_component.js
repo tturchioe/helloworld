@@ -61,7 +61,12 @@
                     container: "timeSlider",
                     view: view
                 });
-                
+
+                // set routing service
+                var routeTask = new RouteTask({
+                    url: "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
+                });
+                  
                 view.when(function () {
                     view.popup.autoOpenEnabled = false; //disable popups
 
@@ -75,8 +80,8 @@
                     view.ui.add( basemapToggle, "bottom-right");
 
                 });
-          });
-      }
+          }); // end of require()
+      } // end of class()
  
       getSelection() {
           return this._currentSelection;
