@@ -8,15 +8,8 @@
               height: 100%;
           }
 
-          #timeSlider {
-				      position: absolute;
-				      left: 5%;
-				      right: 15%;
-				      bottom: 20px;
-			    }
       </style>
       <div id='mapview'></div>
-      <div id='timeSlider'></div>
    `;
  
     class Map extends HTMLElement {
@@ -69,11 +62,11 @@
                   // Add the toggle to the bottom-right of the view
 			          	view.ui.add( basemapToggle, "bottom-right");
 
-           				// time slider widget initialization
-          				const timeSlider = new TimeSlider({
-          		  			container: "timeSlider",
-          		  			view: view
-          				});
+//           				// time slider widget initialization
+//          				const timeSlider = new TimeSlider({
+//          		  			container: "timeSlider",
+//          		  			view: view
+//          				});
 		
           				var routeTask = new RouteTask({
           		  			url: "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
