@@ -67,6 +67,32 @@
                     url: "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
                 });
                 
+                // set on click for directions
+                view.on("click", function( event) {
+                    if (view.graphics.length === 0) {
+                          addGraphic("start", event.mapPoint);
+                    } else if (view.graphics.length === 1) {
+                          addGraphic("finish", event.mapPoint);
+                          getRoute();
+                    } else {
+                          view.graphics.removeAll();
+                          addGraphic("start", event.mapPoint);
+                    }
+                });
+
+                // adds start and end graphics when user clicks on map
+                function addGraphic(type, point) {
+                    var graphic = new Graphic({
+                      symbol: {
+                        type: "simple-marker",
+                        color: type === "start" ? "white" : "black",
+                        size: "8px"
+                      },
+                      geometry: point
+                    });
+                    view.graphics.add(graphic);
+                }
+
                 view.when(function () {
                     view.popup.autoOpenEnabled = false; //disable popups
 
@@ -75,32 +101,6 @@
                         view:view,
                         nextBasemap: "satellite"
                     });
-                    
-                    // set on click for directions
-                    view.on("click", function( event) {
-                        if (view.graphics.length === 0) {
-                            addGraphic("start", event.mapPoint);
-                        } else if (view.graphics.length === 1) {
-                            addGraphic("finish", event.mapPoint);
-                            getRoute();
-                        } else {
-                            view.graphics.removeAll();
-                            addGraphic("start", event.mapPoint);
-                        }
-                    });
-
-                    // adds start and end graphics when user clicks on map
-                    function addGraphic(type, point) {
-                        var graphic = new Graphic({
-                        symbol: {
-                            type: "simple-marker",
-                            color: type === "start" ? "white" : "black",
-                            size: "8px"
-                        },
-                        geometry: point
-                        });
-                        view.graphics.add(graphic);
-                    }
                     
                     // Add the toggle to the bottom-right of the view
                     view.ui.add( basemapToggle, "bottom-right");
