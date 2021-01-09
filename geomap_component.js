@@ -78,7 +78,20 @@
                           view.graphics.removeAll();
                           addGraphic("start", event.mapPoint);
                     }
-                  });
+                });
+
+                // adds start and end graphics when user clicks on map
+                function addGraphic(type, point) {
+                    var graphic = new Graphic({
+                      symbol: {
+                        type: "simple-marker",
+                        color: type === "start" ? "white" : "black",
+                        size: "8px"
+                      },
+                      geometry: point
+                    });
+                    view.graphics.add(graphic);
+                }
 
                 view.when(function () {
                     view.popup.autoOpenEnabled = false; //disable popups
