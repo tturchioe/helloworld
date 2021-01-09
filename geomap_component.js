@@ -8,6 +8,11 @@
               height: 100%;
           }
 
+          #timeSlider {
+            position: absolute;
+            left: 5%;
+            right: 15%;
+            bottom: 20px;
       </style>
       <div id='mapview'></div>
    `;
