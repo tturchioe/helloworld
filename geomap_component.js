@@ -20,46 +20,46 @@
           let that = this;
  
           require([
-              "esri/widgets/Sketch",
-              "esri/layers/GraphicsLayer",
-              "esri/layers/FeatureLayer",
-              "esri/WebScene",
-              "esri/views/SceneView",
-              "esri/widgets/Editor"
-          ], function (Sketch,GraphicsLayer,FeatureLayer, WebScene, SceneView, Editor) {            // Create a map from the referenced webscene item id
+      		    "esri/config",
+				      "esri/WebMap",
+				      "esri/views/MapView",
+				      "esri/widgets/BasemapToggle",
+				      "esri/layers/FeatureLayer",
+				      "esri/widgets/TimeSlider",
+				      "esri/widgets/Expand",
+				      "esri/tasks/RouteTask",
+				      "esri/tasks/support/RouteParameters",
+				      "esri/tasks/support/FeatureSet",
+				      "esri/Graphic",
+				      "esri/views/ui/UI",
+				      "esri/views/ui/DefaultUI"
+          ], function(esriConfig, WebMap, MapView, BasemapToggle, FeatureLayer, TimeSlider, Expand, RouteTask, RouteParameters, FeatureSet, Graphic) {
+  		    		// set portal and API Key
+		        	esriConfig.portalUrl = "https://arcgisent.gcoe.cloud/portal";
+		      		esriConfig.apiKey = 'WU-6RmVTw6-fZB6LRO-J8w0smNPCpbBnIweq70bupv0RhGVcncRkTVFLivcv1UXIfpyLkIFPz13wA7AKjDo7T8AgCdDNTpXUWBAuscdfnjlTxmOgMDfqi18uaV75cuCzAMktu0aalDfJFkPXkV4usJwS8ioYXPjwClsr6_KrTcp-7A5mziw_0AYAN488u1FJi1tdIcs6BCM64C8Er4R4as6VkEju_5AeukwfsPs0iJs.';
+		
+		      		const webmap = new WebMap ({
+		              portalItem: {
+				      		    id: "137c11ce25bc485ca31feaf548f563f3"
+		    			    }
+				      });
 
-              let webscene = new WebScene({
-                  portalItem: {
-                      id: "206a6a13162c4d9a95ea6a87abad2437"
-                  }
-              });
-
-              // Create a layer with visualVariables to use interactive handles for size and rotation
-    
-              var view = new SceneView({
-                  container: "mapview",
-                  qualityProfile: "high",
-                  map: webscene
-              });
+				      const view = new MapView({
+		  			      container: "mapview",
+		  			      map: webmap
+				      });
     
               view.when(function () {
                   view.popup.autoOpenEnabled = false; //disable popups
-                  // Create the Editor
-//                  var editor = new Editor({
-//                      view: view
-//                  });
+
+                  // Create the basemap toggle
+          				var basemapToggle = new BasemapToggle({
+            		  		view:view,
+            		  		nextBasemap: "satellite"
+          				});
                   
-                  // Add widget to top-right of the view
-//                  view.ui.add(editor, "top-right");
-        
-//                  const satelliteCheckbox = document.getElementById("satellite");
-                  // change event handler to set the basempa accordingly
-//                  satelliteCheckbox.addEventListener("change", function (event) {
-//                      view.map.basemap = event.target.checked ? "satellite" : "";
-//                  });
-                  
-                  // Add the checkbox to the bottom-right of the view
-                  view.ui.add("setting", "bottom-right");
+                  // Add the toggle to the bottom-right of the view
+			          	view.ui.add( basemapToggle, "bottom-right");
               });
           });
     
@@ -123,7 +123,7 @@
       }
     }
  
-    let scriptSrc = "https://js.arcgis.com/4.17/"
+    let scriptSrc = "https://js.arcgis.com/4.18/"
     let onScriptLoaded = function() {
         customElements.define("com-sap-custom-geomap", Map);
     }
