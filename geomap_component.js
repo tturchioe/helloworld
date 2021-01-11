@@ -50,6 +50,7 @@
                     url: "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
                 });
 
+
 	      		const webmap = new WebMap ({
                     portalItem: {
 		      		    id: "137c11ce25bc485ca31feaf548f563f3"
@@ -61,6 +62,14 @@
 		  		    map: webmap
 				});
     
+                // Create the basemap toggle
+                var basemapToggle = new BasemapToggle({
+                    view:view,
+                    nextBasemap: "satellite"
+                });
+
+                view.ui.add( basemapToggle, "bottom-right");
+                
                 // time slider widget initialization
                 const timeSlider = new TimeSlider({
                     container: "timeSlider",
@@ -147,19 +156,19 @@
                     view.ui.add(directions, "top-right");
                 }
                 
-                view.when(function () {
-                    view.popup.autoOpenEnabled = false; //disable popups
+//                view.when(function () {
+//                    view.popup.autoOpenEnabled = false; //disable popups
 
                     // Create the basemap toggle
-                    var basemapToggle = new BasemapToggle({
-                        view:view,
-                        nextBasemap: "satellite"
-                    });
+//                    var basemapToggle = new BasemapToggle({
+//                        view:view,
+//                        nextBasemap: "satellite"
+//                    });
                     
                     // Add the toggle to the bottom-right of the view
-                    view.ui.add( basemapToggle, "bottom-right");
+//                    view.ui.add( basemapToggle, "bottom-right");
 
-                });
+//                });
           }); // end of require()
       } // end of class()
  
