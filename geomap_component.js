@@ -62,14 +62,6 @@
 		  		    map: webmap
 				});
     
-                // Create the basemap toggle
-                var basemapToggle = new BasemapToggle({
-                    view:view,
-                    nextBasemap: "satellite"
-                });
-
-                view.ui.add( basemapToggle, "bottom-right");
-
                 // time slider widget initialization
                 const timeSlider = new TimeSlider({
                     container: "timeSlider",
@@ -160,13 +152,13 @@
                     view.popup.autoOpenEnabled = false; //disable popups
 
                     // Create the basemap toggle
-//                    var basemapToggle = new BasemapToggle({
-//                        view:view,
-//                        nextBasemap: "satellite"
-//                    });
+                    var basemapToggle = new BasemapToggle({
+                        view:view,
+                        nextBasemap: "satellite"
+                    });
                     
                     // Add the toggle to the bottom-right of the view
-//                    view.ui.add( basemapToggle, "bottom-right");
+                    view.ui.add( basemapToggle, "bottom-right");
 
                 });
           }); // end of require()
