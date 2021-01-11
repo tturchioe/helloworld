@@ -72,36 +72,28 @@
                 view.on("click", addStop);
                 
                 function addStop( event) {
-
-                    // adds start and end graphics when user clicks on map
-                    var start = new Graphic({
-                        symbol: {
-                        type: "simple-marker",
-                        color: "white",
-                        size: "8px"
-                      },
-                      geometry: point
-                    });
-            
-                    var stop = new Graphic({
-                        symbol: {
-                        type: "simple-marker",
-                        color: "black",
-                        size: "8px"
-                      },
-                      geometry: point
-                    });
-
                     if (view.graphics.length === 0) {
-                        view.graphics.add(start);
+                        addGraphic("start", event.mapPoint);
                     } else if (view.graphics.length === 1) {
-                        view.graphics.add(stop);
+                        addGraphic("finish", event.mapPoint);
                         getRoute();
                     } else {
                         view.graphics.removeAll();
-                        view.graphic.add(start);
+                        addGraphic("start", event.mapPoint);
                     }
                 };
+                
+                function addGraphic(type, point) {
+                    var graphic = new Graphic({
+                        symbol: {
+                            type: "simple-marker",
+                            color: type === "start" ? "white" : "black",
+                            size: "8px"
+                        },
+                        geometry: point
+                    });
+                    view.graphics.add(graphic);
+                }
                 
                 function getRoute() {
                     // Setup the route parameters
