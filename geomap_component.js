@@ -44,7 +44,12 @@
 	    		// set portal and API Key
 	        	esriConfig.portalUrl = "https://arcgisent.gcoe.cloud/portal";
 	      		esriConfig.apiKey = 'WU-6RmVTw6-fZB6LRO-J8w0smNPCpbBnIweq70bupv0RhGVcncRkTVFLivcv1UXIfpyLkIFPz13wA7AKjDo7T8AgCdDNTpXUWBAuscdfnjlTxmOgMDfqi18uaV75cuCzAMktu0aalDfJFkPXkV4usJwS8ioYXPjwClsr6_KrTcp-7A5mziw_0AYAN488u1FJi1tdIcs6BCM64C8Er4R4as6VkEju_5AeukwfsPs0iJs.';
-		
+        
+                // set routing service
+                var routeTask = new RouteTask({
+                    url: "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
+                });
+
 	      		const webmap = new WebMap ({
                     portalItem: {
 		      		    id: "137c11ce25bc485ca31feaf548f563f3"
@@ -61,38 +66,87 @@
                     container: "timeSlider",
                     view: view
                 });
-
-                // set routing service
-                var routeTask = new RouteTask({
-                    url: "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
-                });
-                
+    
                 // set on click for directions
-                view.on("click", function( event) {
-                    if (view.graphics.length === 0) {
-                          addGraphic("start", event.mapPoint);
-                    } else if (view.graphics.length === 1) {
-                          addGraphic("finish", event.mapPoint);
-                          getRoute();
-                    } else {
-                          view.graphics.removeAll();
-                          addGraphic("start", event.mapPoint);
-                    }
-                });
+                view.on("click", addStop);
+                
+                function addStop( event) {
 
-                // adds start and end graphics when user clicks on map
-                function addGraphic(type, point) {
-                    var graphic = new Graphic({
-                      symbol: {
+                    // adds start and end graphics when user clicks on map
+                    var start = new Graphic({
+                        symbol: {
                         type: "simple-marker",
-                        color: type === "start" ? "white" : "black",
+                        color: "white",
                         size: "8px"
                       },
                       geometry: point
                     });
-                    view.graphics.add(graphic);
+            
+                    var stop = new Graphic({
+                        symbol: {
+                        type: "simple-marker",
+                        color: "black",
+                        size: "8px"
+                      },
+                      geometry: point
+                    });
+
+                    if (view.graphics.length === 0) {
+                        view.graphics.add(start);
+                    } else if (view.graphics.length === 1) {
+                        view.graphics.add(stop);
+                        getRoute();
+                    } else {
+                        view.graphics.removeAll();
+                        view.graphic.add(start);
+                    }
+                };
+                
+                function getRoute() {
+                    // Setup the route parameters
+                    var routeParams = new RouteParameters({
+                        stops: new FeatureSet({
+                            features: view.graphics.toArray() // Pass the array of graphics
+                        }),
+                        returnDirections: true
+                    });
+          
+                    // Get the route
+                    routeTask.solve(routeParams).then( showRoute);
                 }
 
+                function showRoute( data)
+                {
+                    // Display the route
+                    data.routeResults.forEach(function (result) {
+                        result.route.symbol = {
+                            type: "simple-line",
+                            color: [5, 150, 255],
+                            width: 3
+                        };
+                        view.graphics.add(result.route);
+                    });
+          
+                    // Display the directions
+                    var directions = document.createElement("ol");
+                    directions.classList = "esri-widget esri-widget--panel esri-directions__scroller";
+                    directions.style.marginTop = 0;
+                    directions.style.paddingTop = "15px";
+              
+                    // Show the directions
+                    var features = data.routeResults[0].directions.features;
+                    features.forEach(function (result, i) {
+                        var direction = document.createElement("li");
+                        direction.innerHTML =
+                            result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
+                        directions.appendChild(direction);
+                    });
+              
+                    // Add directions to the view
+                    view.ui.empty("top-right");
+                    view.ui.add(directions, "top-right");
+                }
+                
                 view.when(function () {
                     view.popup.autoOpenEnabled = false; //disable popups
 
