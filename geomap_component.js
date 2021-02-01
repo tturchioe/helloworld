@@ -39,7 +39,7 @@
 			    "esri/tasks/support/FeatureSet",
 			    "esri/Graphic",
 			    "esri/views/ui/UI",
-			    "esri/views/ui/DefaultUI"
+			    "esri/views/ui/DefaultUI" 
           ], function(esriConfig, WebMap, MapView, BasemapToggle, FeatureLayer, TimeSlider, Expand, RouteTask, RouteParameters, FeatureSet, Graphic) {
 	    		// set portal and API Key
 	        	esriConfig.portalUrl = "https://arcgisent.gcoe.cloud/portal";
