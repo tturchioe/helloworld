@@ -43,11 +43,11 @@
           ], function(esriConfig, WebMap, MapView, BasemapToggle, FeatureLayer, TimeSlider, Expand, RouteTask, RouteParameters, FeatureSet, Graphic) {
 	    		// set portal and API Key
 	        	esriConfig.portalUrl = "https://arcgisent.gcoe.cloud/portal";
-	      		esriConfig.apiKey = 'WU-6RmVTw6-fZB6LRO-J8w0smNPCpbBnIweq70bupv0RhGVcncRkTVFLivcv1UXIfpyLkIFPz13wA7AKjDo7T8AgCdDNTpXUWBAuscdfnjlTxmOgMDfqi18uaV75cuCzAMktu0aalDfJFkPXkV4usJwS8ioYXPjwClsr6_KrTcp-7A5mziw_0AYAN488u1FJi1tdIcs6BCM64C8Er4R4as6VkEju_5AeukwfsPs0iJs.';
+	      		esriConfig.apiKey = 'AAPKf196048563ac465cac3871f734b034d9ejQwGBAjOQAk7bCbx0597Gtssv2ZqtLs0N9lbRgmB4ZYgmeteIkQb4IWRkXUenCD';
         
                 // set routing service
                 var routeTask = new RouteTask({
-                    url: "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
+                    url: "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
                 });
 
 

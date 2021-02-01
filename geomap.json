@@ -1,0 +1,112 @@
+{
+  "id": "com.sap.custom.geomap",
+  "version": "1.0.0",
+  "name": "GeoMap",
+  "description": "GeoMap widget",
+  "newInstancePrefix": "geoMap",
+  "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAAb1BMVEX///+ZmZl4dXdBPj9hYGGOjpE6ODo8OjwvLC0lISIpJSaMiooyLzH/cjMxLi9GREb/ZSk2MzV9fX1MSks4NjcrJyn/WR9ycnJRT1AtKiv/TRVdXF1ra2v7VCfJyMk+PD6tra+rqqtUUlU0MTNqaGpjxDg2AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAKhJREFUGNM9z9EagiAMBeDpEGkWNAGhqFTq/Z8xwK/+q7PtZgeg6npEMcBPJ0d1Kmg6ZnFGRZcLESnR7tpoouuVSCPPZYHWee+XxTsrvQeYQrwV97tL5uZigMeoqucTUSnWEVBX4fWaW2BYz1W3bXsLDPldcD8MoYZ3glmMjNbGLJk5igDgnLTGHazdAPo1Gdms2bZXhRmbMuNR5rNWJuX075sMYg57jV94IQ2Xqt1atQAAAABJRU5ErkJggg==",
+  "vendor": "sap",
+  "eula": "",
+  "license": "",
+  "imports": [ "input-controls" ],
+  "webcomponents": [
+    {
+      "kind": "main",
+      "tag": "com-sap-custom-geomap",
+      "url": "https://tturchioe.github.io/sacwidget/geomap_component.js",
+      "integrity": "",
+      "ignoreIntegrity": true
+    },
+    {
+      "kind": "styling",
+      "tag": "com-sap-custom-geomap-aps",
+      "url": "https://tturchioe.github.io/sacwidget/geomap_aps.js",
+      "integrity": "",
+      "ignoreIntegrity": true
+    }
+  ],
+  "properties": {
+    "metadata": {
+      "type": "string",
+      "description": "For internal use",
+      "default": ""
+    },
+    "restapiurl": {
+      "type": "string",
+      "description": "The REST API URL",
+      "default": "http://ec2-3-88-217-89.compute-1.amazonaws.com/sap/sw/geogeneric"
+    },
+    "name": {
+      "type": "string",
+      "description": "widget name",
+      "default": ""
+    },
+    "score": {
+      "type": "string",
+      "description": "score",
+      "default": ""
+    }
+  },
+  "methods": {
+    "getRestAPIUrl": {
+      "returnType": "string",
+      "description": "Get the REST API URL",
+      "parameters": [      
+      ],
+      "body": "return this.restapiurl;"
+    },
+    "setRestAPIUrl": {
+      "description": "Set the REST API URL",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "string",
+          "description": "The new REST API URL"
+        }
+      ],
+      "body": "this.restapiurl = value;"
+    },
+    "getScore": {
+      "returnType": "string",
+      "description": "Get the score",
+      "parameters": [
+      ],
+      "body": "return this.score;"
+    },
+    "setScore": {
+      "description": "Set the score",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "string",
+          "description": "The new score"
+        }
+      ],
+      "body": "this.score = value;"
+    },
+    "getName": {
+      "returnType": "string",
+      "description": "Get widget name",
+      "parameters": [
+        
+      ],
+      "body": "return this.name;"
+    },
+    "setName": {
+      "description": "Set widget name",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "string",
+          "description": "The new widget name"
+        }
+      ],
+      "body": "this.name = value;"
+    }
+  },
+  "events": {
+    "onStart": {
+      "description": "onStart events trigger"
+    }
+  }
+}
