@@ -154,7 +154,7 @@
                     view.ui.add( basemapToggle, "bottom-right");
                 
                     // should have been set in onCustomWidgetBeforeUpdate()
-                    debug.log( passedServiceType);
+                    console.log( passedServiceType);
 
                     // find the SPL sublayer so a query is issued
                     var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
