@@ -154,6 +154,11 @@
                     
                     var changedValue = changedProperties["servicelevel"];
                     debug.log( changedValue);
+
+                    // find the SPL sublayer so a query is issued
+                    var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
+                    var myLyr = svcLyr.findSublayerById(6);
+                    debug.log( myLyr)
                 });
           }); // end of require()
       } // end of class()
