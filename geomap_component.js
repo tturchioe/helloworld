@@ -1,5 +1,6 @@
 (function() {
    let template = document.createElement("template");
+   var passedServiceType;   // holds passed in guarantee of service - set in onCustomWidgetBeforeUpdate()
    template.innerHTML = `
       <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
       <style>
@@ -153,7 +154,7 @@
                     view.ui.add( basemapToggle, "bottom-right");
                     
                     var changedValue = changedProperties["servicelevel"];
-                    debug.log( changedValue);
+                    debug.log( passedServiceType);
 
                     // find the SPL sublayer so a query is issued
                     var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
@@ -218,7 +219,8 @@
              this._props = { ...this._props, ...changedProperties };
 	     console.log(["Service Level",changedProperties["servicelevel"]]);
       }
-          onCustomWidgetAfterUpdate(changedProperties) {
+           passedServiceType = changedProperties["servicelevel"];
+           onCustomWidgetAfterUpdate(changedProperties) {
       }
     }
  
