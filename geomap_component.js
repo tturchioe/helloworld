@@ -152,8 +152,8 @@
                     
                     // Add the toggle to the bottom-right of the view
                     view.ui.add( basemapToggle, "bottom-right");
-                    
-                    var changedValue = changedProperties["servicelevel"];
+                
+                    // should have been set in onCustomWidgetBeforeUpdate()
                     debug.log( passedServiceType);
 
                     // find the SPL sublayer so a query is issued
