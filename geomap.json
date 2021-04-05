@@ -47,6 +47,12 @@
       "default": ""
     }
   },
+    "servicelevel": {
+      "type": "integer",
+      "description": "Electircal Service Level",
+      "default": 0
+    }
+  },
   "methods": {
     "getRestAPIUrl": {
       "returnType": "string",
@@ -65,6 +71,17 @@
         }
       ],
       "body": "this.restapiurl = value;"
+    },
+    "setServiceLevel": {
+      "description": "Set the customer Service Level",
+      "parameters": [
+        {
+          "name": "service",
+          "type": "integer",
+          "description": "ServiceLevel"
+        }
+      ],
+      "body": "this.servicelevel = service;"
     },
     "getScore": {
       "returnType": "string",
