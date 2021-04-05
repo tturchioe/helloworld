@@ -219,8 +219,11 @@
              this._props = { ...this._props, ...changedProperties };
 	     console.log(["Service Level",changedProperties["servicelevel"]]);
       }
-           passedServiceType = changedProperties["servicelevel"];
            onCustomWidgetAfterUpdate(changedProperties) {
+               if ("servicelevel" in changedProperties) {
+                   this.$servicelevel = changedProperties["servicelevel"];
+               }
+               passedServiceType = this.$servicelevel;
       }
     }
  
