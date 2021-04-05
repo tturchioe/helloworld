@@ -151,7 +151,9 @@
                     
                     // Add the toggle to the bottom-right of the view
                     view.ui.add( basemapToggle, "bottom-right");
-
+                    
+                    var changedValue = changedProperties["servicelevel"];
+                    debug.log( changedValue);
                 });
           }); // end of require()
       } // end of class()
