@@ -74,6 +74,18 @@
     
                 // set on click for directions
                 view.on("click", addStop);
+                                
+                function addGraphic(type, point) {
+                    var graphic = new Graphic({
+                        symbol: {
+                            type: "simple-marker",
+                            color: type === "start" ? "white" : "black",
+                            size: "8px"
+                        },
+                        geometry: point
+                    });
+                    view.graphics.add(graphic);
+                }
                 
                 function addStop( event) { // no code here
                     // here neither
@@ -87,19 +99,7 @@
                         addGraphic("start", event.mapPoint);
                     }
                 };
-                
-                function addGraphic(type, point) {
-                    var graphic = new Graphic({
-                        symbol: {
-                            type: "simple-marker",
-                            color: type === "start" ? "white" : "black",
-                            size: "8px"
-                        },
-                        geometry: point
-                    });
-                    view.graphics.add(graphic);
-                }
-                
+
                 function getRoute() {
                     // Setup the route parameters
                     var routeParams = new RouteParameters({
