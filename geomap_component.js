@@ -167,7 +167,7 @@
                     // Load all resources but ignore if one or more of them failed to load
                     svcLyr.when(function() {
                         myLyr = svcLyr.findSublayerById(6);
-                        queryFeatureLayer(myLyr);
+                        myLyr.definitionExpression = "NODISCONCT = " + passedServiceType;
                         console.log("All loaded");
                     });
 
@@ -177,22 +177,23 @@
 
                 });
 
-                function queryFeatureLayer(myLyr) {
-                    const qry = {
-                        where: "NODISCONCT=6",  // Set by select element
-                        outFields: ["*"], // Attributes to return
-                        returnGeometry: false
-                    };
+                function queryFeatureLayer(myLyr) { // definition 
+
+//                    const qry = {
+//                        where: "NODISCONCT=6",  // Set by select element
+//                        outFields: ["*"], // Attributes to return
+//                        returnGeometry: false
+//                    };
      
-                    myLyr.queryFeatures(qry)
+//                    myLyr.queryFeatures(qry)
      
-                    .then((results) => {
+//                    .then((results) => {
      
-                    console.log("Feature count: " + results.features.length)
+//                    console.log("Feature count: " + results.features.length)
      
-                    }).catch((error) => {
-                        console.log(error.error);
-                    });
+//                    }).catch((error) => {
+//                        console.log(error.error);
+//                    });
                 };
                      
           }); // end of require()
