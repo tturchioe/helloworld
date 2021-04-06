@@ -1,6 +1,8 @@
 (function() {
    let template = document.createElement("template");
    var passedServiceType;   // holds passed in guarantee of service - set in onCustomWidgetBeforeUpdate()
+   var myLyr;               // for sublayer
+
    template.innerHTML = `
       <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
       <style>
@@ -80,9 +82,17 @@
 
                     // find the SPL sublayer so a query is issued
                     var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
-                    console.log( svcLyr.url);
 
-                    var myLyr = svcLyr.findSublayerById(6);
+                    // Load all resources but ignore if one or more of them failed to load
+                    svcLyr.loadAll()
+                        .catch(function(error) {
+                            // Ignore any failed resources
+                        })
+                        .then(function() {
+                            myLyr = this.findSublayerById(6);
+                            console.log("All loaded");
+                        });
+                    console.log( svcLyr);
                     console.log( myLyr);  
                     // end test
 
