@@ -156,7 +156,7 @@
                     // Add the toggle to the bottom-right of the view
                     view.ui.add( basemapToggle, "bottom-right");
 
-                    // test some more
+                    // test some more SAC flakiness
                     // should have been set in onCustomWidgetBeforeUpdate()
                     console.log( passedServiceType);
 
