@@ -165,15 +165,11 @@
                     var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
 
                     // Load all resources but ignore if one or more of them failed to load
-                    svcLyr.loadAll()
-                        .catch(function(error) {
-                            // Ignore any failed resources
-                            console.log("Uh oh");
-                        })
-                        .then(function() {
-                            myLyr = this.findSublayerById(6);
-                            console.log("All loaded");
-                        });
+                    svcLyr.when(function() {
+                        myLyr = svcLyr.findSublayerById(6);
+                        console.log("All loaded");
+                    });
+
                     console.log( svcLyr);
                     console.log( myLyr);  
                     // end test
