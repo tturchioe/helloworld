@@ -73,18 +73,6 @@
                 view.on("click", addStop);
                 
                 function addStop( event) {
-
-                    // test
-                    // should have been set in onCustomWidgetBeforeUpdate()
-                    console.log( passedServiceType);
-
-                    // find the SPL sublayer so a query is issued
-                    var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
-                    console.log( svcLyr);
-                    var myLyr = svcLyr.findSublayerById(6);
-                    console.log( myLyr);  
-                    // end test
-                    
                     if (view.graphics.length === 0) {
                         addGraphic("start", event.mapPoint);
                     } else if (view.graphics.length === 1) {
@@ -165,7 +153,21 @@
                     // Add the toggle to the bottom-right of the view
                     view.ui.add( basemapToggle, "bottom-right");
                     
-     
+                    // test
+                    // should have been set in onCustomWidgetBeforeUpdate()
+                    console.log( passedServiceType);
+
+                    // find the SPL sublayer so a query is issued
+                    var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
+                    console.log( svcLyr);
+
+                    // wait 500 ms and call a function to get the sub layer
+                    setTimeout(() => {
+                        var myLyr = svcLyr.findSublayerById(6);
+                    }, 500);
+
+                    console.log( myLyr);  
+                    // end test
                 });
 
           }); // end of require()
