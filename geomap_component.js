@@ -76,26 +76,6 @@
                 view.on("click", addStop);
                 
                 function addStop( event) {
-                    // test some more
-                    // should have been set in onCustomWidgetBeforeUpdate()
-                    console.log( passedServiceType);
-
-                    // find the SPL sublayer so a query is issued
-                    var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
-
-                    // Load all resources but ignore if one or more of them failed to load
-                    svcLyr.loadAll()
-                        .catch(function(error) {
-                            // Ignore any failed resources
-                        })
-                        .then(function() {
-                            myLyr = this.findSublayerById(6);
-                            console.log("All loaded");
-                        });
-                    console.log( svcLyr);
-                    console.log( myLyr);  
-                    // end test
-
                     if (view.graphics.length === 0) {
                         addGraphic("start", event.mapPoint);
                     } else if (view.graphics.length === 1) {
@@ -175,7 +155,27 @@
                     
                     // Add the toggle to the bottom-right of the view
                     view.ui.add( basemapToggle, "bottom-right");
-                    
+
+                    // test some more
+                    // should have been set in onCustomWidgetBeforeUpdate()
+                    console.log( passedServiceType);
+
+                    // find the SPL sublayer so a query is issued
+                    var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
+
+                    // Load all resources but ignore if one or more of them failed to load
+                    svcLyr.loadAll()
+                        .catch(function(error) {
+                            // Ignore any failed resources
+                            console.log("Uh oh");
+                        })
+                        .then(function() {
+                            myLyr = this.findSublayerById(6);
+                            console.log("All loaded");
+                        });
+                    console.log( svcLyr);
+                    console.log( myLyr);  
+                    // end test
 
                 });
 
