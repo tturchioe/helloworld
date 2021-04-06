@@ -162,10 +162,7 @@
                     var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
                     console.log( svcLyr);
 
-                    // wait 500 ms 
-                    setTimeout(function(){ console.log( "Hello"); }, 500);
-
-                    var myLyr = svcLyr.findSublayerById(6);
+                    var myLyr = svcLyr.findSublayerById(6).loadStatus;
                     console.log( myLyr);  
                     // end test
                 });
