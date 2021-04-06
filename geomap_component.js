@@ -75,7 +75,8 @@
                 // set on click for directions
                 view.on("click", addStop);
                 
-                function addStop( event) {
+                function addStop( event) { // no code here
+                    // here neither
                     if (view.graphics.length === 0) {
                         addGraphic("start", event.mapPoint);
                     } else if (view.graphics.length === 1) {
