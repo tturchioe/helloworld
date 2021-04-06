@@ -33,6 +33,7 @@
 			    "esri/views/MapView",
 			    "esri/widgets/BasemapToggle",
 			    "esri/layers/FeatureLayer",
+                "esri/layers/support/Sublayer",
 			    "esri/widgets/TimeSlider",
 			    "esri/widgets/Expand",
 			    "esri/tasks/RouteTask",
@@ -41,7 +42,7 @@
 			    "esri/Graphic",
 			    "esri/views/ui/UI",
 			    "esri/views/ui/DefaultUI" 
-          ], function(esriConfig, WebMap, MapView, BasemapToggle, FeatureLayer, TimeSlider, Expand, RouteTask, RouteParameters, FeatureSet, Graphic) {
+          ], function(esriConfig, WebMap, MapView, BasemapToggle, FeatureLayer, Sublayer, TimeSlider, Expand, RouteTask, RouteParameters, FeatureSet, Graphic) {
 	    		// set portal and API Key
 	        	esriConfig.portalUrl = "https://arcgisent.gcoe.cloud/portal";
 	      		esriConfig.apiKey = 'AAPKf196048563ac465cac3871f734b034d9ejQwGBAjOQAk7bCbx0597Gtssv2ZqtLs0N9lbRgmB4ZYgmeteIkQb4IWRkXUenCD';
