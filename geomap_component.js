@@ -161,7 +161,7 @@
                     var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
                     console.log( svcLyr);
 
-                    // wait 500 ms and call a function to get the sub layer
+                    // wait 500 ms 
                     setTimeout(() => {
                         console.log( "Waiting");
                     }, 500);
