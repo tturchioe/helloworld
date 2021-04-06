@@ -154,7 +154,7 @@
                     view.ui.add( basemapToggle, "bottom-right");                
                 });
 
-                view.isFulfilled( function(){
+                view.when(function(){
                     // should have been set in onCustomWidgetBeforeUpdate()
                     console.log( passedServiceType);
 
@@ -162,9 +162,10 @@
                     var svcLyr = webmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
                     console.log( svcLyr);
                     var myLyr = svcLyr.findSublayerById(6);
-                    console.log( myLyr);
-                })
-                
+                    console.log( myLyr);                  }, function(error){
+                    // This function will execute if the promise is rejected due to an error
+                  });
+
           }); // end of require()
       } // end of class()
  
