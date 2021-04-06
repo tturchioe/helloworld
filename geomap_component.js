@@ -74,7 +74,7 @@
                 view.on("click", addStop);
                 
                 function addStop( event) {
-                    // test
+                    // test some more
                     // should have been set in onCustomWidgetBeforeUpdate()
                     console.log( passedServiceType);
 
@@ -85,7 +85,7 @@
                     var myLyr = svcLyr.findSublayerById(6);
                     console.log( myLyr);  
                     // end test
-                                        
+
                     if (view.graphics.length === 0) {
                         addGraphic("start", event.mapPoint);
                     } else if (view.graphics.length === 1) {
