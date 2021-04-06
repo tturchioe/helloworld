@@ -163,9 +163,9 @@
 
                     // wait 500 ms and call a function to get the sub layer
                     setTimeout(() => {
-                        var myLyr = svcLyr.findSublayerById(6);
+                        console.log( "Waiting");
                     }, 500);
-
+                    var myLyr = svcLyr.findSublayerById(6);
                     console.log( myLyr);  
                     // end test
                 });
