@@ -22,28 +22,6 @@
     `;
       
     class Map extends HTMLElement {
-
-        // this function takes the passed in servicelevel and issues a definition query
-        // to filter service location geometries
-        //
-        // A definition query filters what was first retrieved from the SPL feature service
-        applyDefinitionQuery( myWebmap) 
-        { 
-            var svcLyr = myWebmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
-        
-            // only execute when the sublayer is loaded. Note this is asynchronous
-            // so it may be skipped over during execution and be executed after exiting this function
-            svcLyr.when(function() {
-                myLyr = svcLyr.findSublayerById(6);
-                console.log("Sublayer loaded...");
-
-                // run the query
-                processDefinitionQuery( myLyr);
-            });
-            console.log( svcLyr);
-            console.log( myLyr);
-        }
-          
         constructor() {
             super();
             
@@ -51,7 +29,27 @@
             this.appendChild(template.content.cloneNode(true));
             this._props = {};
             let that = this;
-            
+
+            // this function takes the passed in servicelevel and issues a definition query
+            // to filter service location geometries
+            //
+            // A definition query filters what was first retrieved from the SPL feature service
+            function applyDefinitionQuery( myWebmap) {
+                var svcLyr = myWebmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
+        
+                // only execute when the sublayer is loaded. Note this is asynchronous
+                // so it may be skipped over during execution and be executed after exiting this function
+                svcLyr.when(function() {
+                    myLyr = svcLyr.findSublayerById(6);
+                    console.log("Sublayer loaded...");
+
+                    // run the query
+                    processDefinitionQuery( myLyr);
+                });
+                console.log( svcLyr);
+                console.log( myLyr);
+            };
+
             require([
                 "esri/config",
                 "esri/WebMap",
@@ -259,7 +257,7 @@
                 this.applyDefinitionQuery( webmap);
             }
         }
-
+          
         // process the definition query on the passed in SPL feature sublayer
         processDefinitionQuery( passedLayer)
         {
