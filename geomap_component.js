@@ -50,6 +50,37 @@
                 console.log( myLyr);
             };
 
+        // process the definition query on the passed in SPL feature sublayer
+        function processDefinitionQuery( passedLayer)
+        {
+            // values of passedServiceType
+            // 0 - no service levels. Only show service locations without a guarantee of service (GoS)
+            // 1 - return any service location with a GoS = 1
+            // 2 - GoS = 2
+            // 3 - GoS = 3
+            // 4 - GoS = 4
+            // 5 - GoS = 5
+            // 6 - GoS = 6
+            // 7 - return all service levels
+            if (passedServiceType === 0) { // display all service locations
+                // apply no filter
+            } else if (passedServiceType === 1) { // display GoS = 1
+                passedLayer.definitionExpression = "NODISCONCT = 1";
+            } else if (passedServiceType === 2) { // display GoS = 2
+                passedLayer.definitionExpression = "NODISCONCT = 2";
+            } else if (passedServiceType === 3) { // display GoS = 3
+                passedLayer.definitionExpression = "NODISCONCT = 3";
+            } else if (passedServiceType === 4) { // display GoS = 4
+                passedLayer.definitionExpression = "NODISCONCT = 4";
+            } else if (passedServiceType === 5) { // display GoS = 5
+                passedLayer.definitionExpression = "NODISCONCT = 5";
+            } else if (passedServiceType === 6) { // display GoS = 6
+                passedLayer.definitionExpression = "NODISCONCT = 6";
+            } else { // default is to only display service locations with a set GoS
+                passedLayer.definitionExpression = "NODISCONCT IN (1, 2, 3, 4, 5, 6)";
+            }
+        }
+
             require([
                 "esri/config",
                 "esri/WebMap",
@@ -255,37 +286,6 @@
             // only attempt to filter displayed service locations if the webmap is initialized
            if (webmapInstantiated === 1) {
                 this.applyDefinitionQuery( webmap);
-            }
-        }
-          
-        // process the definition query on the passed in SPL feature sublayer
-        processDefinitionQuery( passedLayer)
-        {
-            // values of passedServiceType
-            // 0 - no service levels. Only show service locations without a guarantee of service (GoS)
-            // 1 - return any service location with a GoS = 1
-            // 2 - GoS = 2
-            // 3 - GoS = 3
-            // 4 - GoS = 4
-            // 5 - GoS = 5
-            // 6 - GoS = 6
-            // 7 - return all service levels
-            if (passedServiceType === 0) { // display all service locations
-                // apply no filter
-            } else if (passedServiceType === 1) { // display GoS = 1
-                passedLayer.definitionExpression = "NODISCONCT = 1";
-            } else if (passedServiceType === 2) { // display GoS = 2
-                passedLayer.definitionExpression = "NODISCONCT = 2";
-            } else if (passedServiceType === 3) { // display GoS = 3
-                passedLayer.definitionExpression = "NODISCONCT = 3";
-            } else if (passedServiceType === 4) { // display GoS = 4
-                passedLayer.definitionExpression = "NODISCONCT = 4";
-            } else if (passedServiceType === 5) { // display GoS = 5
-                passedLayer.definitionExpression = "NODISCONCT = 5";
-            } else if (passedServiceType === 6) { // display GoS = 6
-                passedLayer.definitionExpression = "NODISCONCT = 6";
-            } else { // default is to only display service locations with a set GoS
-                passedLayer.definitionExpression = "NODISCONCT IN (1, 2, 3, 4, 5, 6)";
             }
         }
     } // end of class
