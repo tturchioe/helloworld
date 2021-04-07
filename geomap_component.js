@@ -57,7 +57,7 @@
         // 7 - GoS = 6
         // 8 (default) - return all service levels
         if ((gPassedServiceType === 0) || (gPassedServiceType === 1)) { // display all service locations
-            // apply no filter
+            gMyLyr.definitionExpression = "1 = 1"
         } else if (gPassedServiceType === 2) { // display GoS = 1
             gMyLyr.definitionExpression = "NODISCONCT = 1";
         } else if (gPassedServiceType === 3) { // display GoS = 2
