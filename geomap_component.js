@@ -22,16 +22,7 @@
         <div id='mapview'></div>
         <div id='timeSlider'></div>
     `;
-      
-    class Map extends HTMLElement {
-        constructor() {
-            super();
-            
-            //this._shadowRoot = this.attachShadow({mode: "open"});
-            this.appendChild(template.content.cloneNode(true));
-            this._props = {};
-            let that = this;
-
+    
             // this function takes the passed in servicelevel and issues a definition query
             // to filter service location geometries
             //
@@ -82,6 +73,15 @@
                 gMyLyr.definitionExpression = "NODISCONCT IN (1, 2, 3, 4, 5, 6)";
             }
         }
+
+    class Map extends HTMLElement {
+        constructor() {
+            super();
+            
+            //this._shadowRoot = this.attachShadow({mode: "open"});
+            this.appendChild(template.content.cloneNode(true));
+            this._props = {};
+            let that = this;
 
             require([
                 "esri/config",
