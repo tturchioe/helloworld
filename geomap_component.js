@@ -20,8 +20,30 @@
         <div id='mapview'></div>
         <div id='timeSlider'></div>
     `;
-
+      
     class Map extends HTMLElement {
+
+        // this function takes the passed in servicelevel and issues a definition query
+        // to filter service location geometries
+        //
+        // A definition query filters what was first retrieved from the SPL feature service
+        applyDefinitionQuery( myWebmap) 
+        { 
+            var svcLyr = myWebmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
+        
+            // only execute when the sublayer is loaded. Note this is asynchronous
+            // so it may be skipped over during execution and be executed after exiting this function
+            svcLyr.when(function() {
+                myLyr = svcLyr.findSublayerById(6);
+                console.log("Sublayer loaded...");
+
+                // run the query
+                processDefinitionQuery( myLyr);
+            });
+            console.log( svcLyr);
+            console.log( myLyr);
+        }
+          
         constructor() {
             super();
             
@@ -29,7 +51,7 @@
             this.appendChild(template.content.cloneNode(true));
             this._props = {};
             let that = this;
-        
+            
             require([
                 "esri/config",
                 "esri/WebMap",
@@ -149,7 +171,7 @@
 
                 view.when(function () {
                     view.popup.autoOpenEnabled = false; //disable popups
-                    webmapInstantiated = 1; // used in applyDefinitionQuery
+                    webmapInstantiated = 1; // used in onCustomWidgetAfterUpdate
         
                     // Create the basemap toggle
                     var basemapToggle = new BasemapToggle({
@@ -236,27 +258,6 @@
            if (webmapInstantiated === 1) {
                 this.applyDefinitionQuery( webmap);
             }
-        }
-
-        // this function takes the passed in servicelevel and issues a definition query
-        // to filter service location geometries
-        //
-        // A definition query filters what was first retrieved from the SPL feature service
-        applyDefinitionQuery( myWebmap) 
-        { 
-            var svcLyr = myWebmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
-        
-            // only execute when the sublayer is loaded. Note this is asynchronous
-            // so it may be skipped over during execution and be executed after exiting this function
-            svcLyr.when(function() {
-                myLyr = svcLyr.findSublayerById(6);
-               console.log("All loaded");
-
-                // run the query
-                processDefinitionQuery( myLyr);
-            });
-            console.log( svcLyr);
-            console.log( myLyr);
         }
 
         // process the definition query on the passed in SPL feature sublayer
