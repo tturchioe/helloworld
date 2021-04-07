@@ -49,7 +49,7 @@
                     processDefinitionQuery();
                 });
                 console.log( svcLyr);
-                console.log( myLyr);
+                console.log( gMyLyr);
             };
 
         // process the definition query on the passed in SPL feature sublayer
@@ -289,7 +289,7 @@
         
             // only attempt to filter displayed service locations if the webmap is initialized
            if (webmapInstantiated === 1) {
-                this.applyDefinitionQuery();
+                applyDefinitionQuery();
             }
         }
     } // end of class
