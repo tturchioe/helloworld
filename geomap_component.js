@@ -1,6 +1,6 @@
 (function() {
     let template = document.createElement("template");
-    var passedServiceType; // holds passed in guarantee of service - set in onCustomWidgetBeforeUpdate()
+    var gPassedServiceType; // holds passed in guarantee of service - set in onCustomWidgetBeforeUpdate()
     var webmapInstantiated = 0; // a global used in applying definition query
     var gMyLyr; // for sublayer
     var gMyWebmap; // needs to be global for async call to onCustomWidgetAfterUpdate()
@@ -23,56 +23,57 @@
         <div id='timeSlider'></div>
     `;
     
-            // this function takes the passed in servicelevel and issues a definition query
-            // to filter service location geometries
-            //
-            // A definition query filters what was first retrieved from the SPL feature service
-            function applyDefinitionQuery() {
-                var svcLyr = gMyWebmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
+    // this function takes the passed in servicelevel and issues a definition query
+    // to filter service location geometries
+    //
+    // A definition query filters what was first retrieved from the SPL feature service
+    function applyDefinitionQuery() {
+        var svcLyr = gMyWebmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
         
-                // only execute when the sublayer is loaded. Note this is asynchronous
-                // so it may be skipped over during execution and be executed after exiting this function
-                svcLyr.when(function() {
-                    gMyLyr = svcLyr.findSublayerById(6);    // store in global variable
-                    console.log("Sublayer loaded...");
+        // only execute when the sublayer is loaded. Note this is asynchronous
+        // so it may be skipped over during execution and be executed after exiting this function
+        svcLyr.when(function() {
+            gMyLyr = svcLyr.findSublayerById(6);    // store in global variable
+            console.log("Sublayer loaded...");
 
-                    // run the query
-                    processDefinitionQuery();
-                });
-                console.log( svcLyr);
-                console.log( gMyLyr);
-            };
+            // run the query
+            processDefinitionQuery();
+        });
+//        console.log( svcLyr);
+//        console.log( gMyLyr);
+    };
 
-        // process the definition query on the passed in SPL feature sublayer
-        function processDefinitionQuery()
-        {
-            // values of passedServiceType
-            // 0 - no service levels. Only show service locations without a guarantee of service (GoS)
-            // 1 - return any service location with a GoS = 1
-            // 2 - GoS = 2
-            // 3 - GoS = 3
-            // 4 - GoS = 4
-            // 5 - GoS = 5
-            // 6 - GoS = 6
-            // 7 - return all service levels
-            if (passedServiceType === 0) { // display all service locations
-                // apply no filter
-            } else if (passedServiceType === 1) { // display GoS = 1
-                gMyLyr.definitionExpression = "NODISCONCT = 1";
-            } else if (passedServiceType === 2) { // display GoS = 2
-                gMyLyr.definitionExpression = "NODISCONCT = 2";
-            } else if (passedServiceType === 3) { // display GoS = 3
-                gMyLyr.definitionExpression = "NODISCONCT = 3";
-            } else if (passedServiceType === 4) { // display GoS = 4
-                gMyLyr.definitionExpression = "NODISCONCT = 4";
-            } else if (passedServiceType === 5) { // display GoS = 5
-                gMyLyr.definitionExpression = "NODISCONCT = 5";
-            } else if (passedServiceType === 6) { // display GoS = 6
-                gMyLyr.definitionExpression = "NODISCONCT = 6";
-            } else { // default is to only display service locations with a set GoS
-                gMyLyr.definitionExpression = "NODISCONCT IN (1, 2, 3, 4, 5, 6)";
-            }
+    // process the definition query on the passed in SPL feature sublayer
+    function processDefinitionQuery()
+    {
+        // values of passedServiceType
+        // 0, 1 - no service levels. Only show service locations without a guarantee of service (GoS)
+        //     Note that 0 is passed in when the widget is initialized and 1 on subsequent times
+        // 2 - return any service location with a GoS = 1
+        // 3 - GoS = 2
+        // 4 - GoS = 3
+        // 5 - GoS = 4
+        // 6 - GoS = 5
+        // 7 - GoS = 6
+        // 8 (default) - return all service levels
+        if ((passedServiceType === 0) || (passedServiceType === 1)) { // display all service locations
+            // apply no filter
+        } else if (passedServiceType === 2) { // display GoS = 1
+            gMyLyr.definitionExpression = "NODISCONCT = 1";
+        } else if (passedServiceType === 3) { // display GoS = 2
+            gMyLyr.definitionExpression = "NODISCONCT = 2";
+        } else if (passedServiceType === 4) { // display GoS = 3
+            gMyLyr.definitionExpression = "NODISCONCT = 3";
+        } else if (passedServiceType === 5) { // display GoS = 4
+            gMyLyr.definitionExpression = "NODISCONCT = 4";
+        } else if (passedServiceType === 6) { // display GoS = 5
+            gMyLyr.definitionExpression = "NODISCONCT = 5";
+        } else if (passedServiceType === 7) { // display GoS = 6
+            gMyLyr.definitionExpression = "NODISCONCT = 6";
+        } else { // default is to only display service locations with a set GoS
+            gMyLyr.definitionExpression = "NODISCONCT IN (1, 2, 3, 4, 5, 6)";
         }
+    }
 
     class Map extends HTMLElement {
         constructor() {
@@ -285,7 +286,7 @@
             if ("servicelevel" in changedProperties) {
                 this.$servicelevel = changedProperties["servicelevel"];
             }
-            passedServiceType = this.$servicelevel;
+            passedServiceType = this.$servicelevel; // place passed in value into global
         
             // only attempt to filter displayed service locations if the webmap is initialized
            if (webmapInstantiated === 1) {
