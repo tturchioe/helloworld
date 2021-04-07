@@ -115,7 +115,7 @@
                     }
                 });
 
-                myWebmap = webmap;  // save to global variable
+                gMyWebmap = webmap;  // save to global variable
 
                 const view = new MapView({
                     container: "mapview",
