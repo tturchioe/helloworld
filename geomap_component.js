@@ -220,7 +220,7 @@
                     console.log( passedServiceType);
 
                     // find the SPL sublayer so a query is issued
-                    applyDefinitionQuery( webmap);
+                    applyDefinitionQuery();
                 });
 
             }); // end of require()
