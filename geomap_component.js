@@ -2,7 +2,9 @@
     let template = document.createElement("template");
     var passedServiceType; // holds passed in guarantee of service - set in onCustomWidgetBeforeUpdate()
     var webmapInstantiated = 0; // a global used in applying definition query
-    var myLyr; // for sublayer
+    var gMyLyr; // for sublayer
+    var gMyWebmap; // needs to be global for async call to onCustomWidgetAfterUpdate()
+
     template.innerHTML = `
         <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css">
         <style>
@@ -34,24 +36,24 @@
             // to filter service location geometries
             //
             // A definition query filters what was first retrieved from the SPL feature service
-            function applyDefinitionQuery( myWebmap) {
-                var svcLyr = myWebmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
+            function applyDefinitionQuery() {
+                var svcLyr = gMyWebmap.findLayerById( 'NapervilleElectric_MIL1_1724' );
         
                 // only execute when the sublayer is loaded. Note this is asynchronous
                 // so it may be skipped over during execution and be executed after exiting this function
                 svcLyr.when(function() {
-                    myLyr = svcLyr.findSublayerById(6);
+                    gMyLyr = svcLyr.findSublayerById(6);    // store in global variable
                     console.log("Sublayer loaded...");
 
                     // run the query
-                    processDefinitionQuery( myLyr);
+                    processDefinitionQuery();
                 });
                 console.log( svcLyr);
                 console.log( myLyr);
             };
 
         // process the definition query on the passed in SPL feature sublayer
-        function processDefinitionQuery( passedLayer)
+        function processDefinitionQuery()
         {
             // values of passedServiceType
             // 0 - no service levels. Only show service locations without a guarantee of service (GoS)
@@ -65,19 +67,19 @@
             if (passedServiceType === 0) { // display all service locations
                 // apply no filter
             } else if (passedServiceType === 1) { // display GoS = 1
-                passedLayer.definitionExpression = "NODISCONCT = 1";
+                gMyLyr.definitionExpression = "NODISCONCT = 1";
             } else if (passedServiceType === 2) { // display GoS = 2
-                passedLayer.definitionExpression = "NODISCONCT = 2";
+                gMyLyr.definitionExpression = "NODISCONCT = 2";
             } else if (passedServiceType === 3) { // display GoS = 3
-                passedLayer.definitionExpression = "NODISCONCT = 3";
+                gMyLyr.definitionExpression = "NODISCONCT = 3";
             } else if (passedServiceType === 4) { // display GoS = 4
-                passedLayer.definitionExpression = "NODISCONCT = 4";
+                gMyLyr.definitionExpression = "NODISCONCT = 4";
             } else if (passedServiceType === 5) { // display GoS = 5
-                passedLayer.definitionExpression = "NODISCONCT = 5";
+                gMyLyr.definitionExpression = "NODISCONCT = 5";
             } else if (passedServiceType === 6) { // display GoS = 6
-                passedLayer.definitionExpression = "NODISCONCT = 6";
+                gMyLyr.definitionExpression = "NODISCONCT = 6";
             } else { // default is to only display service locations with a set GoS
-                passedLayer.definitionExpression = "NODISCONCT IN (1, 2, 3, 4, 5, 6)";
+                gMyLyr.definitionExpression = "NODISCONCT IN (1, 2, 3, 4, 5, 6)";
             }
         }
 
@@ -112,6 +114,8 @@
                         id: "137c11ce25bc485ca31feaf548f563f3"
                     }
                 });
+
+                myWebmap = webmap;  // save to global variable
 
                 const view = new MapView({
                     container: "mapview",
@@ -285,7 +289,7 @@
         
             // only attempt to filter displayed service locations if the webmap is initialized
            if (webmapInstantiated === 1) {
-                this.applyDefinitionQuery( webmap);
+                this.applyDefinitionQuery();
             }
         }
     } // end of class
