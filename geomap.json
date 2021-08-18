@@ -13,7 +13,7 @@
     {
       "kind": "main",
       "tag": "com-sap-custom-geomap",
-      "url": "https://tturchioe.github.io/sacwidget/geomap_component.js",
+      "url": "https://tturchioe.github.io/helloworld/geomap_component.js",
       "integrity": "",
       "ignoreIntegrity": true
     },
