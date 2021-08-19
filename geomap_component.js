@@ -28,7 +28,7 @@
     //
     // A definition query filters what was first retrieved from the SPL feature service
     function applyDefinitionQuery() {
-        var svcLyr = gMyWebmap.findLayerById( 'NapervilleElectric_MIL1' );
+        var svcLyr = gMyWebmap.findLayerById( 'NapervilleElectric_MIL1_7674' );
         
         // only execute when the sublayer is loaded. Note this is asynchronous
         // so it may be skipped over during execution and be executed after exiting this function
