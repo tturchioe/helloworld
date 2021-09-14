@@ -49,7 +49,7 @@
   },
     "servicelevel": {
       "type": "integer",
-      "description": "Electircal Service Level",
+      "description": "Electrical Service Level",
       "default": 0
     }
   },
