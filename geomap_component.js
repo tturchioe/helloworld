@@ -43,6 +43,9 @@
             console.log( "Sublayer is");
             console.log( gMyLyr);
 
+            // force sublayer visible
+            gMyLyr.visible = true;
+
             // run the query
             processDefinitionQuery();
         });
