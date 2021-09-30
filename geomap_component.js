@@ -1,7 +1,7 @@
 (function() {
     let template = document.createElement("template");
     var gPassedServiceType; // holds passed in guarantee of service - set in onCustomWidgetBeforeUpdate()
-    var webmapInstantiated = 0; // a global used in applying definition query
+    var gWebmapInstantiated = 0; // a global used in applying definition query
     var gMyLyr; // for sublayer
     var gMyWebmap; // needs to be global for async call to onCustomWidgetAfterUpdate()
 
@@ -213,7 +213,7 @@
 
                 view.when(function () {
                     view.popup.autoOpenEnabled = false; //disable popups
-                    webmapInstantiated = 1; // used in onCustomWidgetAfterUpdate
+                    gWebmapInstantiated = 1; // used in onCustomWidgetAfterUpdate
         
                     // Create the basemap toggle
                     var basemapToggle = new BasemapToggle({
@@ -297,7 +297,7 @@
             gPassedServiceType = this.$servicelevel; // place passed in value into global
         
             // only attempt to filter displayed service locations if the webmap is initialized
-           if (webmapInstantiated === 1) {
+           if (gWebmapInstantiated === 1) {
                 applyDefinitionQuery();
             }
         }
