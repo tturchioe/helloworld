@@ -67,19 +67,19 @@
         if (gPassedServiceType <= 1) { // display all service locations
             gMyLyr.definitionExpression = "1 = 1"
         } else if (gPassedServiceType === 2) { // display GoS = 1
-            gMyLyr.definitionExpression = "NODISCONCT = 1";
+            gMyLyr.definitionExpression = "NODISCONCT = '1'";
         } else if (gPassedServiceType === 3) { // display GoS = 2
-            gMyLyr.definitionExpression = "NODISCONCT = 2";
+            gMyLyr.definitionExpression = "NODISCONCT = '2'";
         } else if (gPassedServiceType === 4) { // display GoS = 3
-            gMyLyr.definitionExpression = "NODISCONCT = 3";
+            gMyLyr.definitionExpression = "NODISCONCT = '3'";
         } else if (gPassedServiceType === 5) { // display GoS = 4
-            gMyLyr.definitionExpression = "NODISCONCT = 4";
+            gMyLyr.definitionExpression = "NODISCONCT = '4'";
         } else if (gPassedServiceType === 6) { // display GoS = 5
-            gMyLyr.definitionExpression = "NODISCONCT = 5";
+            gMyLyr.definitionExpression = "NODISCONCT = '5'";
         } else if (gPassedServiceType === 7) { // display GoS = 6
-            gMyLyr.definitionExpression = "NODISCONCT = 6";
+            gMyLyr.definitionExpression = "NODISCONCT = '6'";
         } else { // default is to only display service locations with a set GoS
-            gMyLyr.definitionExpression = "NODISCONCT IN (1, 2, 3, 4, 5, 6)";
+            gMyLyr.definitionExpression = "NODISCONCT IN ('1', '2', '3', '4', '5', '6')";
         }
     }
 
