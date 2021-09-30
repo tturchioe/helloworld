@@ -114,7 +114,7 @@
         
                 const webmap = new WebMap ({
                     portalItem: {
-                        id: "369aec18d3094ef291780116a68b4f4e"
+                        id: "452b466acb78448f8dcb7ac762c1895f"
                     }
                 });
 
