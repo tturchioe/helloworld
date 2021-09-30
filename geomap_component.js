@@ -32,6 +32,9 @@
         console.log( "Layer is");
         console.log( svcLyr);
 
+        // make layers visible
+        svcLyr.visible = true;
+
         // only execute when the sublayer is loaded. Note this is asynchronous
         // so it may be skipped over during execution and be executed after exiting this function
         svcLyr.when(function() {
