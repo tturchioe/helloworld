@@ -47,11 +47,10 @@
       "default": ""
     }
   },
-    "servicelevel": {
+  "servicelevel": {
       "type": "integer",
       "description": "Electrical Service Level",
       "default": 0
-    }
   },
   "methods": {
     "getRestAPIUrl": {
