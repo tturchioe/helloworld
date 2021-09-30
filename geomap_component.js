@@ -34,7 +34,11 @@
         // so it may be skipped over during execution and be executed after exiting this function
         svcLyr.when(function() {
             gMyLyr = svcLyr.findSublayerById(6);    // store in global variable
+<<<<<<< HEAD
             console.log("Sublayer loaded...", gMyLyr.error);
+=======
+            console.log("Sublayer loaded...", gMyLyr.console.error());
+>>>>>>> cebc5f827f2262c3b624b2334aa5e4709af3d8bb
 
             // run the query
             processDefinitionQuery();
