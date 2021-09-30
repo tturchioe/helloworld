@@ -34,13 +34,13 @@
         // so it may be skipped over during execution and be executed after exiting this function
         svcLyr.when(function() {
             gMyLyr = svcLyr.findSublayerById(6);    // store in global variable
-            console.log("Sublayer loaded...", gMyLyr.error);
+            console.log("Sublayer loaded...");
 
             // run the query
             processDefinitionQuery();
         });
-//        console.log( svcLyr);
-//        console.log( gMyLyr);
+        console.log( svcLyr);
+        console.log( gMyLyr);
     };
 
     // process the definition query on the passed in SPL feature sublayer
