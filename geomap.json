@@ -1,6 +1,6 @@
 {
   "id": "com.sap.custom.geomap",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "name": "GeoMap",
   "description": "GeoMap widget",
   "newInstancePrefix": "geoMap",
@@ -13,14 +13,14 @@
     {
       "kind": "main",
       "tag": "com-sap-custom-geomap",
-      "url": "https://tturchioe.github.io/sacwidget/geomap_component.js",
+      "url": "https://tturchioe.github.io/helloworld/geomap_component.js",
       "integrity": "",
       "ignoreIntegrity": true
     },
     {
-      "kind": "styling",
+      "kind": "builder",
       "tag": "com-sap-custom-geomap-aps",
-      "url": "https://tturchioe.github.io/sacwidget/geomap_aps.js",
+      "url": "https://tturchioe.github.io/helloworld/geomap_aps.js",
       "integrity": "",
       "ignoreIntegrity": true
     }
@@ -31,77 +31,69 @@
       "description": "For internal use",
       "default": ""
     },
-    "restapiurl": {
+    "portalurl": {
       "type": "string",
-      "description": "The REST API URL",
-      "default": "http://ec2-3-88-217-89.compute-1.amazonaws.com/sap/sw/geogeneric"
-    },
-    "name": {
-      "type": "string",
-      "description": "widget name",
+      "description": "ESRI Portal URL",
       "default": ""
     },
-    "score": {
+    "apikey": {
       "type": "string",
-      "description": "score",
-      "default": ""
+      "description": "Key",
+      "default": ""  
+   },
+    "servicelevel": {
+      "type": "integer",
+      "description": "Electrical NODISCONT Service Level",
+      "default": 0
     }
   },
   "methods": {
-    "getRestAPIUrl": {
-      "returnType": "string",
-      "description": "Get the REST API URL",
-      "parameters": [      
-      ],
-      "body": "return this.restapiurl;"
-    },
-    "setRestAPIUrl": {
-      "description": "Set the REST API URL",
+    "setServiceLevel": {
+      "description": "Set the customer Service Level",
       "parameters": [
         {
-          "name": "value",
-          "type": "string",
-          "description": "The new REST API URL"
+          "name": "service",
+          "type": "integer",
+          "description": "ServiceLevel"
         }
       ],
-      "body": "this.restapiurl = value;"
+      "body": "this.servicelevel = service;"
     },
-    "getScore": {
+    "getAPIkey": {   
       "returnType": "string",
-      "description": "Get the score",
+      "description": "Optional api method - Get API Key",
       "parameters": [
       ],
-      "body": "return this.score;"
+      "body": "return this.apikey;"
     },
-    "setScore": {
-      "description": "Set the score",
+    "setAPIkey": {
+      "description": "Set the API Key",
       "parameters": [
         {
-          "name": "value",
+          "name": "pkey",
           "type": "string",
-          "description": "The new score"
+          "description": "Set New API Key"
         }
       ],
-      "body": "this.score = value;"
+      "body": "this.apikey = pkey;"
     },
-    "getName": {
+    "getPortalURL": {
       "returnType": "string",
-      "description": "Get widget name",
+      "description": "Get portal URL",
       "parameters": [
-        
       ],
-      "body": "return this.name;"
+      "body": "return this.portalurl;"
     },
-    "setName": {
-      "description": "Set widget name",
+    "setPortalURL": {
+      "description": "Set the Portal URL",
       "parameters": [
         {
-          "name": "value",
+          "name": "url",
           "type": "string",
-          "description": "The new widget name"
+          "description": "New Portal URL"
         }
       ],
-      "body": "this.name = value;"
+      "body": "this.portalurl = url;"
     }
   },
   "events": {
