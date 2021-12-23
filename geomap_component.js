@@ -1,6 +1,8 @@
 (function() {
     let template = document.createElement("template");
     var gPassedServiceType; // holds passed in guarantee of service - set in onCustomWidgetBeforeUpdate()
+    var gPassedPortalURL; //ESRI Portal URL
+    var gPassedAPIkey; //ESRI JS api key
     var gWebmapInstantiated = 0; // a global used in applying definition query
     var gMyLyr; // for sublayer
     var gMyWebmap; // needs to be global for async call to onCustomWidgetAfterUpdate()
@@ -110,8 +112,10 @@
             ], function(esriConfig, WebMap, MapView, BasemapToggle, FeatureLayer, TimeSlider, Expand, RouteTask, RouteParameters, FeatureSet, Sublayer, Graphic) {
         
                 // set portal and API Key
-                esriConfig.portalUrl = "https://arcgisent.gcoe.cloud/portal";
-                esriConfig.apiKey = 'AAPKf196048563ac465cac3871f734b034d9ejQwGBAjOQAk7bCbx0597Gtssv2ZqtLs0N9lbRgmB4ZYgmeteIkQb4IWRkXUenCD';
+                esriConfig.portalUrl = gPassedPortalURL
+
+                //  set esri api Key 
+                esriConfig.apiKey = gPassedAPIkey
         
                 // set routing service
                 var routeTask = new RouteTask({
@@ -182,6 +186,7 @@
                 function showRoute( data)
                 {
                     // Display the route
+                    
                     data.routeResults.forEach(function (result) {
                         result.route.symbol = {
                             type: "simple-line",
@@ -212,7 +217,7 @@
                 }
 
                 view.when(function () {
-                    view.popup.autoOpenEnabled = false; //disable popups
+                    view.popup.autoOpenEnabled = true; //disable popups
                     gWebmapInstantiated = 1; // used in onCustomWidgetAfterUpdate
         
                     // Create the basemap toggle
@@ -239,54 +244,11 @@
             return this._currentSelection;
         }
 
-        async setDataSource(source)  {
-            this._dataSource = source;
-            let googleResult = await fetch("https://app.boshdbserver.hanademo.cloud/sap/sw/majorincidents.json");
-            let results = await googleResult.json();
-            console.log(results);
-
-            let resultSet = await source.getResultSet();
-            const that = this;
-            this._spatialLayer.queryFeatures().then(function(mapFeatures){
-                const features = mapFeatures.features;
-                const edits = {
-                    updateFeatures: []
-                }
-
-                const loc_id = that._props["locId"] || "";
-                let max = 0;
-
-                for(let feature of features) {
-                    let result = resultSet.find((result) => feature.attributes[loc_id] == result[loc_id].id);
-                    let value = result ? parseFloat(result["@MeasureDimension"].rawValue) : null;
-                    feature.attributes["Measure"] = value;
-                    max = value > max ? value : max;
-                   edits.updateFeatures.push(feature);
-                }
-
-                edits.updateFeatures.forEach((feature) => feature.attributes["Max"] = max);
-               that._spatialLayer.applyEdits(edits)
-                .then((editResults) => {
-                    console.log(editResults);
-                })
-                .catch((error) => {
-                    console.log("===============================================");
-                    console.error(
-                        "[ applyEdits ] FAILURE: ",
-                        error.code,
-                        error.name,
-                        error.message
-                   );
-        
-                    console.log("error = ", error);
-                })
-            }); 
-        } // end of setDataSource
-
         onCustomWidgetBeforeUpdate(changedProperties)
         {
             this._props = { ...this._props, ...changedProperties };
-            console.log(["Service Level",changedProperties["servicelevel"]]);
+           // console.log(["Service Level",changedProperties["servicelevel"]]);
+
         }
 
         onCustomWidgetAfterUpdate(changedProperties) 
@@ -295,13 +257,26 @@
                 this.$servicelevel = changedProperties["servicelevel"];
             }
             gPassedServiceType = this.$servicelevel; // place passed in value into global
-        
+
+            if ("portalurl" in changedProperties) {
+                this.$portalurl = changedProperties["portalurl"];
+            }
+            gPassedPortalURL = this.$portalurl; // place passed in value into global
+
+            if ("apikey" in changedProperties) {
+                this.$apikey = changedProperties["apikey"];
+            }
+            gPassedAPIkey = this.$apikey; // place passed in value into global
+
             // only attempt to filter displayed service locations if the webmap is initialized
            if (gWebmapInstantiated === 1) {
                 applyDefinitionQuery();
             }
         }
     } // end of class
+
+
+
 
     let scriptSrc = "https://js.arcgis.com/4.18/"
     let onScriptLoaded = function() {
@@ -337,6 +312,6 @@
         };
         document.head.appendChild(script);
     }
-//}
+
 //END SHARED FUNCTION
 })(); // end of class
