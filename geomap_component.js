@@ -30,7 +30,7 @@
     //
     // A definition query filters what was first retrieved from the SPL feature service
     function applyDefinitionQuery() {
-        var svcLyr = gMyWebmap.findLayerById( 'NapervilleElectric_MIL1_6627' ); 
+        var svcLyr = this.gMyWebmap.findLayerById( '781e20d22f47413c8462900faea9cd7f' ); 
         console.log( "Layer is");
         console.log( svcLyr);
 
@@ -125,7 +125,7 @@
                 // replace the ID below with the ID to your web map
                 const webmap = new WebMap ({
                     portalItem: {
-                        id: "75c9b28832d54f64af949c318faba2ed"
+                        id: "7bd6ce03a02d4334ae8429e746a8f47a"
                     }
                 });
 
