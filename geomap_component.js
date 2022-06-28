@@ -30,7 +30,7 @@
     //
     // A definition query filters what was first retrieved from the SPL feature service
     function applyDefinitionQuery() {
-        var svcLyr = this.gMyWebmap.findLayerById( '781e20d22f47413c8462900faea9cd7f' ); 
+        var svcLyr = this.gMyWebmap.findLayerById( 'daed1167baed413a9e38f47ea81b0fab' ); 
         console.log( "Layer is");
         console.log( svcLyr);
 
@@ -126,7 +126,7 @@
                 // replace the ID below with the ID to your web map
                 const webmap = new WebMap ({
                     portalItem: {
-                        id: "7bd6ce03a02d4334ae8429e746a8f47a"
+                        id: "a17e134c51f74252bca8db3c66ef032e"
                     }
                 });
 
