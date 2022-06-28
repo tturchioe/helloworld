@@ -1,8 +1,8 @@
 {
   "id": "com.sap.custom.geomap",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "name": "GeoMap",
-  "description": "GeoMap widget v2",
+  "description": "GeoMap widget",
   "newInstancePrefix": "geoMap",
   "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAAb1BMVEX///+ZmZl4dXdBPj9hYGGOjpE6ODo8OjwvLC0lISIpJSaMiooyLzH/cjMxLi9GREb/ZSk2MzV9fX1MSks4NjcrJyn/WR9ycnJRT1AtKiv/TRVdXF1ra2v7VCfJyMk+PD6tra+rqqtUUlU0MTNqaGpjxDg2AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAKhJREFUGNM9z9EagiAMBeDpEGkWNAGhqFTq/Z8xwK/+q7PtZgeg6npEMcBPJ0d1Kmg6ZnFGRZcLESnR7tpoouuVSCPPZYHWee+XxTsrvQeYQrwV97tL5uZigMeoqucTUSnWEVBX4fWaW2BYz1W3bXsLDPldcD8MoYZ3glmMjNbGLJk5igDgnLTGHazdAPo1Gdms2bZXhRmbMuNR5rNWJuX075sMYg57jV94IQ2Xqt1atQAAAABJRU5ErkJggg==",
   "vendor": "sap",
@@ -18,9 +18,9 @@
       "ignoreIntegrity": true
     },
     {
-      "kind": "styling",
+      "kind": "builder",
       "tag": "com-sap-custom-geomap-aps",
-      "url": "https://tturchioe.github.io/sacwidget/geomap_aps.js",
+      "url": "https://tturchioe.github.io/helloworld/geomap_aps.js",
       "integrity": "",
       "ignoreIntegrity": true
     }
@@ -31,46 +31,23 @@
       "description": "For internal use",
       "default": ""
     },
-    "restapiurl": {
+    "portalurl": {
       "type": "string",
-      "description": "The REST API URL",
-      "default": "http://ec2-3-88-217-89.compute-1.amazonaws.com/sap/sw/geogeneric"
-    },
-    "name": {
-      "type": "string",
-      "description": "widget name",
+      "description": "ESRI Portal URL",
       "default": ""
     },
-    "score": {
+    "apikey": {
       "type": "string",
-      "description": "score",
-      "default": ""
+      "description": "Key",
+      "default": ""  
+   },
+    "servicelevel": {
+      "type": "integer",
+      "description": "Electrical NODISCONT Service Level",
+      "default": 0
     }
   },
-  "servicelevel": {
-      "type": "integer",
-      "description": "Electrical Service Level",
-      "default": 0
-  },
   "methods": {
-    "getRestAPIUrl": {
-      "returnType": "string",
-      "description": "Get the REST API URL",
-      "parameters": [      
-      ],
-      "body": "return this.restapiurl;"
-    },
-    "setRestAPIUrl": {
-      "description": "Set the REST API URL",
-      "parameters": [
-        {
-          "name": "value",
-          "type": "string",
-          "description": "The new REST API URL"
-        }
-      ],
-      "body": "this.restapiurl = value;"
-    },
     "setServiceLevel": {
       "description": "Set the customer Service Level",
       "parameters": [
@@ -82,42 +59,41 @@
       ],
       "body": "this.servicelevel = service;"
     },
-    "getScore": {
+    "getAPIkey": {   
       "returnType": "string",
-      "description": "Get the score",
+      "description": "Optional api method - Get API Key",
       "parameters": [
       ],
-      "body": "return this.score;"
+      "body": "return this.apikey;"
     },
-    "setScore": {
-      "description": "Set the score",
+    "setAPIkey": {
+      "description": "Set the API Key",
       "parameters": [
         {
-          "name": "value",
+          "name": "pkey",
           "type": "string",
-          "description": "The new score"
+          "description": "Set New API Key"
         }
       ],
-      "body": "this.score = value;"
+      "body": "this.apikey = pkey;"
     },
-    "getName": {
+    "getPortalURL": {
       "returnType": "string",
-      "description": "Get widget name",
+      "description": "Get portal URL",
       "parameters": [
-        
       ],
-      "body": "return this.name;"
+      "body": "return this.portalurl;"
     },
-    "setName": {
-      "description": "Set widget name",
+    "setPortalURL": {
+      "description": "Set the Portal URL",
       "parameters": [
         {
-          "name": "value",
+          "name": "url",
           "type": "string",
-          "description": "The new widget name"
+          "description": "New Portal URL"
         }
       ],
-      "body": "this.name = value;"
+      "body": "this.portalurl = url;"
     }
   },
   "events": {

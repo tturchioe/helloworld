@@ -1,4 +1,5 @@
 (function () {
+    var gPassedAPIkey;
     let tmpl = document.createElement("template");
     tmpl.innerHTML = `
       <style>
@@ -22,19 +23,21 @@
               margin: 6px 3px 6px 0;
               vertical-align: middle;
           }
+          
       </style>
       <form id="form" autocomplete="off">
         <fieldset> 
-          <legend>General</legend>
+          <legend>GIS Widget Properties</legend>
           <table>
             <tr>
-              <td><label for="GeoJSONService">GeoJSONService URL</label></td>
-              <td><input id="GeoJSONService" name="GeoJSONService" type="text"></td>
+              <td><label for="apikey">API Key:</label></td>
+              <td><input id="apikey" name="apikey" type="text"></td>
             </tr>
             <tr>
-              <td><label for="Widget Name">Widget Name</label></td>
-              <td><input id="name" name="name" type="text"></td>
+              <td><label for="portalurl">URL:</label></td>
+              <td><input id="portalurl" name="portalurl" type="text"></td>
             </tr>
+            
           </table>
         </fieldset>
         <button type="submit" hidden>Submit</button>
@@ -82,19 +85,24 @@
             }));
         }
 
-        get GeoJSONService() {
-            return this.getValue("GeoJSONService");
+        get apikey() {
+            return this.getValue("apikey");
+            
         }
-        set GeoJSONService(value) {
-            this.setValue("GeoJSONService", value);
+        set apikey(value) {
+            this.setValue("apikey", value);
+            
         }
 
-        get name() {
-            return this.getValue("name");
+        get portalurl() {
+            return this.getValue("portalurl");
         }
-        set name(value) {
-            this.setValue("name", value);
+        set portalurl(value) {
+            this.setValue("portalurl", value);
+        
+            
         } 
+        
 
         getValue(id) {
             return this._shadowRoot.getElementById(id).value;
@@ -106,8 +114,8 @@
 
         static get observedAttributes() {
             return [
-                "GeoJSONService",
-                "name"
+                "apikey",
+                "portalurl"
             ];
         }
 
